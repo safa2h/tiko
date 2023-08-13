@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "490666735715",
+    "project_id": "tiko-1a920",
+    "storage_bucket": "tiko-1a920.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:490666735715:android:eb8aafcd39fb7df271e056",
+        "android_client_info": {
+          "package_name": "com.devsa.tiko"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "490666735715-6vb6jcfbvcq4k8it5c1tk29is947evpd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZVuoPqGmfCX4ULrxGNBTqFojM367VqhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "490666735715-6vb6jcfbvcq4k8it5c1tk29is947evpd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
