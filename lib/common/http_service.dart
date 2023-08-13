@@ -104,44 +104,41 @@ class HttpService implements IHttpservice {
     final String fileName =
         '${directory!.path}/${DateTime.now().toString()}file.mp4';
     try {
-      await dio
-          .download(
-            url,
-            fileName,
-            cancelToken: cancelToken,
-            onReceiveProgress: (count, total) async {
-              // print('progress ${(count / total) * 100}');
-              String downloadName = ((count / total) * 100).toInt() == 100
-                  ? 'Completed'
-                  : 'Downloading';
+      await dio.download(
+        url,
+        fileName,
+        cancelToken: cancelToken,
+        onReceiveProgress: (count, total) async {
+          // print('progress ${(count / total) * 100}');
+          String downloadName = ((count / total) * 100).toInt() == 100
+              ? 'Completed'
+              : 'Downloading';
 
-              var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-                  'download_channel', 'Download Notifications',
-                  channelDescription:
-                      'This channel is used for downloading notifications.',
-                  channelShowBadge: false,
-                  importance: Importance.max,
-                  priority: Priority.high,
-                  playSound: false,
-                  onlyAlertOnce: true,
-                  icon: 'ic_launcher',
-                  when: 100,
-                  enableVibration: false,
-                  maxProgress: 100,
-                  showProgress: true,
-                  progress: ((count / total) * 100).toInt());
+          var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+              'download_channel', 'Download Notifications',
+              channelDescription:
+                  'This channel is used for downloading notifications.',
+              channelShowBadge: false,
+              importance: Importance.max,
+              priority: Priority.high,
+              playSound: false,
+              onlyAlertOnce: true,
+              icon: 'ic_launcher',
+              when: 100,
+              enableVibration: false,
+              maxProgress: 100,
+              showProgress: true,
+              progress: ((count / total) * 100).toInt());
 
-              flutterLocalNotificationsPlugin.show(
-                  1,
-                  downloadName,
-                  name,
-                  NotificationDetails(
-                    android: androidPlatformChannelSpecifics,
-                  ));
-            },
-          )
-          .then((value) {})
-          .whenComplete(() {});
+          flutterLocalNotificationsPlugin.show(
+              1,
+              downloadName,
+              name,
+              NotificationDetails(
+                android: androidPlatformChannelSpecifics,
+              ));
+        },
+      );
     } on DioException catch (e) {
       if (e.type == DioExceptionType.connectionTimeout) {
         removeDownloadedVideo(videoPath: fileName);

@@ -116,74 +116,85 @@ class _HomeScreenYState extends State<HomeScreenY> {
                 bloc: homeBloc,
                 builder: (context, state) {
                   if (state is HomeLoading) {
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Lottie.asset('assets/animation/download_anim.json'),
-                          ElevatedButton(
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        content: const Text(
-                                            'Are you sure you want to cancel??'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text('NO'),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              cancelToken.cancel();
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text('Yes'),
-                                          ),
-                                        ],
-                                      );
-                                    });
-                              },
-                              child: const Text('Do you want to cancel?'))
-                        ],
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Lottie.asset('assets/animation/download_anim.json',
+                                width: 200, height: 150),
+                            ElevatedButton(
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          content: const Text(
+                                              'Are you sure you want to cancel??'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text('NO'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                cancelToken.cancel();
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text('Yes'),
+                                            ),
+                                          ],
+                                        );
+                                      });
+                                },
+                                child: const Text('Do you want to cancel?'))
+                          ],
+                        ),
                       ),
                     );
                   } else if (state is HomeSuccess) {
                     BlocProvider.of<ArchiveBloc>(context).add(ArchiveStarted());
 
                     textEditingController.text = '';
-                    return Center(
-                        child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Lottie.asset('assets/animation/success_anim.json',
-                            width: 200),
-                        ElevatedButton(
-                            onPressed: () {
-                              BlocProvider.of<HomeBloc>(context)
-                                  .add(HomeStarted());
-                            },
-                            child: const Text('OK'))
-                      ],
-                    ));
-                  } else if (state is HomeError) {
-                    textEditingController.text = '';
-                    return ErrorWidgetCustom(
-                        errorMessage:
-                            'Error while downloading... Please try again',
-                        tapCallback: () {
-                          BlocProvider.of<HomeBloc>(context).add(HomeStarted());
-                        });
-                  } else if (state is HomeInitial) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Lottie.asset('assets/animation/success_anim.json',
+                              width: 200, height: 100),
+                          ElevatedButton(
+                              onPressed: () {
+                                BlocProvider.of<HomeBloc>(context)
+                                    .add(HomeStarted());
+                              },
+                              child: const Text('OK')),
+                        ],
+                      )),
+                    );
+                  } else if (state is HomeError) {
+                    textEditingController.text = '';
+                    return Center(
+                      child: ErrorWidgetCustom(
+                          errorMessage:
+                              'Error while downloading... Please try again',
+                          tapCallback: () {
+                            BlocProvider.of<HomeBloc>(context)
+                                .add(HomeStarted());
+                          }),
+                    );
+                  } else if (state is HomeInitial) {
+                    return Padding(
+                      padding: const EdgeInsets.all(4.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           TextField(
                             decoration: const InputDecoration(

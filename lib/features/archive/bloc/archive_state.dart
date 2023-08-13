@@ -16,7 +16,7 @@ class ArchiveRemovedSuccess extends ArchiveState {}
 class ArchiveAddedToGallerySuccess extends ArchiveState {}
 
 class ArchiveSuccess extends ArchiveState {
-  final List<dynamic> files;
+  final Iterable<FileSystemEntity> files;
 
   ArchiveSuccess(this.files);
 }
