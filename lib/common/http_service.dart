@@ -27,8 +27,7 @@ class HttpService implements IHttpservice {
           baseUrl: 'https://tiktok-download-without-watermark.p.rapidapi.com/'),
     )..interceptors.add(InterceptorsWrapper(
         onRequest: (options, handler) {
-          options.headers['X-RapidAPI-Key'] =
-              "92b136a240mshee8485bcbf21bdfp19e05djsn4d2d5770491c";
+          options.headers['X-RapidAPI-Key'] = "api";
           options.headers['X-RapidAPI-Host'] =
               'tiktok-download-without-watermark.p.rapidapi.com';
           handler.next(options);

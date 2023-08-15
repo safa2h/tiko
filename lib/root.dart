@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:tiko/common/ad_manager.dart';
 import 'package:tiko/common/consts.dart';
 import 'package:tiko/features/archive/archive_screen.dart';
@@ -45,9 +46,22 @@ class _RoootScreenState extends State<RoootScreen> {
     }
   }
 
+  Future<void> _shareApp() async {
+    final result = await Share.shareWithResult(
+        'check out my Application https://play.google.com/store/apps/details?id=com.devsa.tiko');
+
+    if (result.status == ShareResultStatus.success) {
+      print('Thank you for sharing...');
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Thank you for sharing...')));
+    }
+  }
+
   Future<void> _appRevieww() async {
     if (await inAppReview.isAvailable()) {
-      inAppReview.requestReview();
+      Future.delayed(const Duration(seconds: 2), () {
+        inAppReview.requestReview();
+      });
     }
   }
 
@@ -147,6 +161,22 @@ class _RoootScreenState extends State<RoootScreen> {
                 },
               ),
               ListTile(
+                leading: const Icon(Icons.star),
+                title: const Text(Constanse.rateUs),
+                onTap: () {
+                  _appRevieww();
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.share),
+                title: const Text(Constanse.recommecndFriends),
+                onTap: () {
+                  _shareApp();
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
                 leading: const Icon(Icons.info),
                 title: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,7 +184,7 @@ class _RoootScreenState extends State<RoootScreen> {
                   children: [
                     Text(Constanse.about),
                     Text(
-                      '1.0.2',
+                      '1.0.3',
                       style: TextStyle(fontSize: 12),
                     )
                   ],
@@ -211,7 +241,7 @@ class _RoootScreenState extends State<RoootScreen> {
               child: Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 24, left: 10),
+                    padding: const EdgeInsets.only(top: 30, left: 10),
                     child: IconButton(
                         onPressed: () {
                           _key.currentState!.openDrawer();
