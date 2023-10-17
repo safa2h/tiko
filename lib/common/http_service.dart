@@ -24,15 +24,8 @@ class HttpService implements IHttpservice {
       BaseOptions(
           receiveDataWhenStatusError: true,
           connectTimeout: const Duration(seconds: 120),
-          baseUrl: 'https://tiktok-download-without-watermark.p.rapidapi.com/'),
-    )..interceptors.add(InterceptorsWrapper(
-        onRequest: (options, handler) {
-          options.headers['X-RapidAPI-Key'] = "api";
-          options.headers['X-RapidAPI-Host'] =
-              'tiktok-download-without-watermark.p.rapidapi.com';
-          handler.next(options);
-        },
-      ));
+          baseUrl: ''),
+    );
   }
   @override
   Future<Response> getRequest(String endPoint) async {
